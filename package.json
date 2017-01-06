@@ -1,0 +1,28 @@
+{
+  "name": "node-dot-path",
+  "version": "1.0.0",
+  "description": "dot path set & get & has & delete property",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LiST-GIT/node-dot-path.git"
+  },
+  "keywords": [
+    "dot",
+    "path",
+    "set",
+    "get",
+    "has",
+    "delete",
+    "property"
+  ],
+  "author": "LiST",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LiST-GIT/node-dot-path/issues"
+  },
+  "homepage": "https://github.com/LiST-GIT/node-dot-path"
+}
