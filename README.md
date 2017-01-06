@@ -7,18 +7,35 @@ npm install node-dot-path
 ```javascript
 const dot = require( 'node-dot-path' );
 
-var node = {};
 
 // norm
-dot.set( node, 'A.B.C.D\\.1', 123 );              // node: { A: { B: { C: { 'D.1': 123 } } } }
-console.log( dot.get( node, 'A.B.C.D\\.1' ) );    // 123
-console.log( dot.has( node, 'A.B.C.D\\.1' ) );    // true
-dot.delete( node, 'A.B.C.D\\.1' );                // node: { A: { B: { C: {} } } }
+var node = {};
+dot.set( node, 'a.b.c.d\\.1', 123 );              // node: { a: { b: { c: { 'd.1': 123 } } } }
+console.log( dot.get( node, 'a.b.c.d\\.1' ) );    // 123
+console.log( dot.has( node, 'a.b.c.d\\.1' ) );    // true
+dot.delete( node, 'a.b.c.d\\.1' );                // node: { a: { b: { c: {} } } }
 
 // batch
-var pathArr = dot.makePathArray( 'A.B.C.D\\.1' );
+var node = {};
+var pathArr = dot.makePathArray( 'a.b.c.d\\.1' );
 dot.set( node, pathArr, 123 );
 console.log( dot.get( node, pathArr ) );
 console.log( dot.has( node, pathArr ) );
 dot.delete( node, pathArr );
+
+// function
+var node = {};
+dot.set( node, 'a.b', function() { return { c: 123 }; } );
+console.log( node );                              // { a: { b: [Function] } }
+console.log( dot.get( node, 'a.b.c', true ) );    // 123
+console.log( dot.get( node, 'a.b.c' ) );          // undefined
+console.log( dot.get( node, 'a.b', true ) );      // { c: 123 }
+console.log( dot.get( node, 'a.b' ) );            // [Function]
+
+// arrayToObject
+console.log( dot.arrayToObject( [ 'a.b=123', 'aa', 'a.c\\=2\\.asd.c=asd asd=asd' ] ) );
+// echo: { a: { b: '123', 'c=2.asd': { c: 'asd asd=asd' } }, aa: true }
+
+dot.arrayToObject( process.argv.slice( 2 ) );
+
 ```

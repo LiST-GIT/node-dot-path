@@ -31,6 +31,7 @@ const makePathArray = function( path ) {
 module.exports = {
 	PathArray: PathArray,
 	makePathArray: makePathArray,
+
 	set: function( node, path, value ) {
 		const pathArray = makePathArray( path );
 		if ( pathArray ) {
@@ -49,21 +50,28 @@ module.exports = {
 			return false;
 		}
 	},
-	get: function( node, path ) {
+	get: function( node, path, exec ) {
 		const pathArray = makePathArray( path );
 		if ( pathArray ) {
-			const end = pathArray.length - 1;
-			for ( var index = 0; index < end; index++ ) {
-				const name = pathArray[ index ];
-				if ( node[ name ] && node[ name ] instanceof Object ) {
+			var index = 0;
+			if ( exec === true ) {
+				for ( ; index < pathArray.length && node; index++ ) {
+					const name = pathArray[ index ];
+					if ( typeof node[ name ] === 'function' ) {
+						node = node[ name ]();
+					} else {
+						node = node[ name ];
+					}
+				}
+			} else {
+				for ( ; index < pathArray.length && node; index++ ) {
+					const name = pathArray[ index ];
 					node = node[ name ];
-				} else {
-					return undefined;
 				}
 			}
-			return node[ pathArray[ end ] ];
-		} else {
-			return undefined;
+			if ( index === pathArray.length ) {
+				return node;
+			}
 		}
 	},
 	has: function( node, path ) {
@@ -97,5 +105,19 @@ module.exports = {
 			}
 			delete node[ pathArray[ end ] ];
 		}
+	},
+
+	arrayToObject: function( array ) {
+		const node = {};
+		for ( var index = 0; index < array.length; index++ ) {
+			const data = array[ index ];
+			const eq = data.search( /[^\\]=/ );
+			if ( eq === -1 ) {
+				module.exports.set( node, data, true );
+			} else {
+				module.exports.set( node, data.slice( 0, eq + 1 ).replace( /\\=/g, '=' ), data.slice( eq + 2 ) );
+			}
+		}
+		return node;
 	},
 };
