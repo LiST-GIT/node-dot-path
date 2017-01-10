@@ -1,9 +1,9 @@
-###Install
+###安装
 `
 npm install node-dot-path
 `
 
-###Example
+###示例
 ```javascript
 const dot = require( 'node-dot-path' );
 
