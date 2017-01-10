@@ -1,3 +1,5 @@
+#Object可优化get,set,has,delete
+
 ###安装
 `
 npm install node-dot-path
