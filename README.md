@@ -1,4 +1,4 @@
-###Download
+###Install
 `
 npm install node-dot-path
 `
