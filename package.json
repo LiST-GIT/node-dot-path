@@ -1,6 +1,6 @@
 {
   "name": "node-dot-path",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "dot path set & get & has & delete property",
   "main": "index.js",
   "scripts": {

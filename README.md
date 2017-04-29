@@ -1,11 +1,14 @@
-#Object可优化get,set,has,delete
 
-###安装
-`
+# Object可优化get,set,has,delete
+
+### 安装
+
+```
 npm install node-dot-path
-`
+```
 
-###示例
+### 示例
+
 ```javascript
 const dot = require( 'node-dot-path' );
 
